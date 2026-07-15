@@ -1,38 +1,36 @@
 
 
-function Book(title, author , page) {
-    this.id = crypto.randomUUID();  //gives random unique to each book
-    this.title = title;
+
+function Book(author , title , page) {
     this.author = author;
+    this.title = title;
     this.page = page;
-    
+};
+
+function addBookToLibrary(author , title , page ) {
+    let books = new Book(author , title , page);
+    MyLibrary.push(books);
 }
-
-
-function addBookToLibrary(title , author , page) {
-    let books = new Book(title , author, page );
-    MyLibrary.push(books); 
-}
-
-
 const MyLibrary = [];
-
-//adds book to the MyLibrary
-addBookToLibrary("atomic habit", "James Clerk", 23);
-addBookToLibrary("brain rot", "sonu" , 34);
-addBookToLibrary("sonu", "dont know " , 34);
-
-
+addBookToLibrary("sonu", "the lion" , 34);
+addBookToLibrary("atomic habits" , "james clerk" , 45)
 console.log(MyLibrary);
 
-//displays book on the page
-const container = document.getElementById("container");
-
-const cardHtml = MyLibrary.map(book => `
-    <div class = "cards"> 
-        <h3>${book.author}</h3>
-        <p>${book.title}</p>
-        <p>${book.page}</p>
-        </div>`).join('');
-
-        container.innerHTML = cardHtml;
+//show books on the page 
+const display = document.getElementById("books");
+display.innerHTML = "";
+MyLibrary.forEach(book => {
+    const newBook = document.createElement("div");
+    newBook.classList.add("cards")
+    const title = document.createElement("h3");
+    const author = document.createElement("p");
+    const page = document.createElement("p");
+    newBook.appendChild(author);
+    newBook.appendChild(title);
+    newBook.appendChild(page);
+    title.innerHTML = `${book.title}`;
+    author.innerHTML = `${book.author}`;
+    page.innerHTML =  `${book.page}`;
+    display.appendChild(newBook);
+    
+});
