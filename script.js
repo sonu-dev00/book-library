@@ -1,12 +1,19 @@
 const MyLibrary = [];
 
 
-function Book(author , title , page) {
+function Book(author , title , page, read) {
+    this.read = read;
     this.author = author;
     this.title = title;
     this.page = page;
     this.id = crypto.randomUUID();
+    
 };
+
+//prototype method 
+Book.prototype.toggleRead = function () {
+    this.read = !this.read;
+}
 
 function addBookToLibrary(author , title , page ) {
     let books = new Book(author , title , page);
@@ -26,7 +33,10 @@ MyLibrary.forEach(book => {
     const author = document.createElement("p");
     const page = document.createElement("p");
     const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "delete" ;   
+    const readBtn = document.createElement("button");
+    readBtn.textContent = book.read ? "Read" : "Not Read";
+    deleteBtn.textContent = "delete" ;  
+    newBook.appendChild(readBtn); 
     newBook.appendChild(title);
     newBook.appendChild(author);
     newBook.appendChild(page);
@@ -36,12 +46,17 @@ MyLibrary.forEach(book => {
     page.innerHTML =  `PAGE : ${book.page}`;
 
     display.appendChild(newBook);
-    
+    //delete books
     deleteBtn.addEventListener('click' , () => {
         const index = MyLibrary.findIndex(item => item.id === book.id);
 
         MyLibrary.splice(index, 1);
 
+        displayBooks();
+    });
+    //status of book
+    readBtn.addEventListener('click', () => {
+        book.toggleRead();
         displayBooks();
     })
 })};
