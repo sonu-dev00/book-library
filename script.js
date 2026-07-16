@@ -40,11 +40,12 @@ MyLibrary.forEach(book => {
     const readBtn = document.createElement("button");
     readBtn.textContent = book.read ? "Read" : "Not Read";
     deleteBtn.textContent = "delete" ;  
-    newBook.appendChild(readBtn); 
+    
     newBook.appendChild(title);
     newBook.appendChild(author);
     newBook.appendChild(page);
     newBook.appendChild(deleteBtn);
+    newBook.appendChild(readBtn); 
     title.innerHTML = `TITLE : ${book.title}`;
     author.innerHTML = `AUTHOR : ${book.author}`;
     page.innerHTML =  `PAGE : ${book.page}`;
