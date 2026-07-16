@@ -1,22 +1,22 @@
-
+const MyLibrary = [];
 
 
 function Book(author , title , page) {
     this.author = author;
     this.title = title;
     this.page = page;
+    this.id = crypto.randomUUID();
 };
 
 function addBookToLibrary(author , title , page ) {
     let books = new Book(author , title , page);
     MyLibrary.push(books);
 }
-const MyLibrary = [];
-addBookToLibrary("sonu", "the lion" , 34);
-addBookToLibrary("atomic habits" , "james clerk" , 45)
+
 console.log(MyLibrary);
 
 //show books on the page 
+function displayBooks() {
 const display = document.getElementById("books");
 display.innerHTML = "";
 MyLibrary.forEach(book => {
@@ -25,12 +25,52 @@ MyLibrary.forEach(book => {
     const title = document.createElement("h3");
     const author = document.createElement("p");
     const page = document.createElement("p");
-    newBook.appendChild(author);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "delete" ;   
     newBook.appendChild(title);
+    newBook.appendChild(author);
     newBook.appendChild(page);
-    title.innerHTML = `${book.title}`;
-    author.innerHTML = `${book.author}`;
-    page.innerHTML =  `${book.page}`;
+    newBook.appendChild(deleteBtn);
+    title.innerHTML = `TITLE : ${book.title}`;
+    author.innerHTML = `AUTHOR : ${book.author}`;
+    page.innerHTML =  `PAGE : ${book.page}`;
+
     display.appendChild(newBook);
     
-});
+    deleteBtn.addEventListener('click' , () => {
+        const index = MyLibrary.findIndex(item => item.id === book.id);
+
+        MyLibrary.splice(index, 1);
+
+        displayBooks();
+    })
+})};
+
+
+//Add new book to the library 
+const dialog = document.querySelector("dialog");
+const confirmBtn = document.getElementById("confirm");
+const addBtn = document.getElementById("addBtn");
+const newBook = document.getElementById("new-book")
+addBtn.addEventListener("click", () => {
+    dialog.showModal();
+})
+
+confirmBtn.addEventListener('click', (e) => {
+    addedBook();
+    document.getElementById("new-book").reset();
+    dialog.close();
+})
+
+function addedBook() {
+    const newTitle = document.getElementById("title");
+    const titleValue = newTitle.value;
+    const newAuthor = document.getElementById("author");
+    const authorValue = newAuthor.value;
+    const newPage = document.getElementById("page");
+    const pageValue = newPage.value;
+
+    addBookToLibrary(authorValue, titleValue, pageValue);
+    displayBooks();
+    
+}
