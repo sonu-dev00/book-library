@@ -15,10 +15,14 @@ Book.prototype.toggleRead = function () {
     this.read = !this.read;
 }
 
-function addBookToLibrary(author , title , page ) {
-    let books = new Book(author , title , page);
+function addBookToLibrary(author , title , page, read ) {
+    let books = new Book(author , title , page , read);
     MyLibrary.push(books);
 }
+addBookToLibrary(" Making a New Science", "james clerk ", 45);
+addBookToLibrary("The Hummingbird House", "Patricia Henley", 87)
+displayBooks();
+
 
 console.log(MyLibrary);
 
@@ -71,9 +75,9 @@ addBtn.addEventListener("click", () => {
     dialog.showModal();
 })
 
-confirmBtn.addEventListener('click', (e) => {
+confirmBtn.addEventListener('click', () => {
     addedBook();
-    document.getElementById("new-book").reset();
+    newBook.reset();
     dialog.close();
 })
 
