@@ -24,8 +24,6 @@ addBookToLibrary("The Hummingbird House", "Patricia Henley", 87)
 displayBooks();
 
 
-console.log(MyLibrary);
-
 //show books on the page 
 function displayBooks() {
 const display = document.getElementById("books");
